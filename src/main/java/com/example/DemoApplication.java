@@ -1,5 +1,6 @@
 package com.example;
 
+import java.time.Duration;
 import java.util.UUID;
 
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
@@ -18,8 +19,9 @@ public class DemoApplication {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("greetings", new ReactiveDataDriverContextVariable(
-                Flux.just(new Greeting("Hello"), new Greeting("World"))));
+        model.addAttribute("greetings",
+                new ReactiveDataDriverContextVariable(Flux.interval(Duration.ofSeconds(1))
+                        .take(4).map(num -> new Greeting("foo " + num))));
         return "index";
     }
 
