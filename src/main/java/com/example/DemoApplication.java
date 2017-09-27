@@ -21,7 +21,7 @@ public class DemoApplication {
     public String home(Model model) {
         model.addAttribute("greetings",
                 new ReactiveDataDriverContextVariable(Flux.interval(Duration.ofSeconds(1))
-                        .take(4).map(num -> new Greeting("foo " + num))));
+                        .take(10).map(num -> new Greeting("foo " + num)), 2));
         return "index";
     }
 
